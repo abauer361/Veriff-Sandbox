@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-surface: #131313;
+  --color-surface-dim: #131313;
+  --color-surface-bright: #3a3939;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1c1b1b;
+  --color-surface-container: #201f1f;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353534;
+  --color-on-surface: #e5e2e1;
+  --color-on-surface-variant: #bbcac5;
+  --color-outline: #86948f;
+  --color-outline-variant: #3c4946;
+  --color-primary: #52dcc3;
+  --color-on-primary: #00382f;
+  --color-primary-container: #00b19a;
+  --color-on-primary-container: #003c33;
+  --color-secondary: #78d7c3;
+  --color-secondary-container: #007b6a;
+  --color-tertiary: #ffb5a0;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+  --color-background: #131313;
+  --color-on-background: #e5e2e1;
+  --color-surface-variant: #353534;
+
+  --radius-sm: 0.125rem;
+  --radius-DEFAULT: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-background text-on-surface font-sans;
+  }
+}
