@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Settings } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import SandboxBrand from './SandboxBrand'
 
 export function HomeHeader() {
@@ -37,7 +37,7 @@ export function ProductHubNav() {
 export function SandboxNav({ backLabel = 'Veriff Sandbox', backTo = '/' }) {
   return (
     <header className="border-b border-outline-variant/30 bg-surface-container-lowest">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 md:px-12">
+      <div className="mx-auto flex max-w-7xl items-center px-4 py-3.5 md:px-12">
         <Link
           to={backTo}
           className="flex items-center gap-2 text-sm font-medium text-primary transition-opacity hover:opacity-80"
@@ -45,7 +45,6 @@ export function SandboxNav({ backLabel = 'Veriff Sandbox', backTo = '/' }) {
           <ArrowLeft className="size-4" />
           <span>{backLabel}</span>
         </Link>
-        <Settings className="size-5 text-on-surface-variant" />
       </div>
     </header>
   )
@@ -62,9 +61,7 @@ export function CenteredTitleNav({ title, backTo = '/' }) {
           <ArrowLeft className="size-4" />
         </Link>
         <span className="text-sm font-medium text-on-surface">{title}</span>
-        <div className="flex justify-end">
-          <Settings className="size-5 text-on-surface-variant" />
-        </div>
+        <div />
       </div>
     </header>
   )
@@ -85,7 +82,6 @@ export function AgeEstimationNav() {
           <span className="rounded border border-outline-variant/60 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-on-surface-variant">
             Internal Tool
           </span>
-          <Settings className="size-5 text-on-surface-variant" />
         </div>
       </div>
     </header>

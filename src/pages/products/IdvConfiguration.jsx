@@ -62,12 +62,10 @@ export default function IdvConfiguration() {
         </header>
 
         <div className="grid min-h-0 min-w-0 flex-1 gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
-          <div className="flex h-full min-h-0 min-w-0 flex-col gap-4">
+          <div className="flex min-h-0 min-w-0 flex-col gap-4 overflow-y-auto">
             <ConfigCard
               icon={Search}
               title="Data Extraction"
-              fill
-              className="min-h-0 flex-1"
               action={
                 <CollapseToggle
                   expanded={expanded}
@@ -80,7 +78,7 @@ export default function IdvConfiguration() {
                   <p className="text-xs text-on-surface-variant">
                     Select Data Points to Extract
                   </p>
-                  <div className="grid min-h-0 gap-2 overflow-y-auto sm:grid-cols-2">
+                  <div className="grid gap-2 sm:grid-cols-2">
                     {DATA_POINTS.map((field) => (
                       <CheckboxOption
                         key={field.id}

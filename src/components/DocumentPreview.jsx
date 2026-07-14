@@ -61,7 +61,7 @@ export default function DocumentPreview({ docType, className = '' }) {
         <img
           src={imageSrc}
           alt={label}
-          className="h-full w-full object-contain p-3"
+          className="h-full w-full object-contain object-center"
         />
       ) : (
         <div className="absolute inset-0 opacity-10">
