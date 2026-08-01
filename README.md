@@ -2,6 +2,8 @@
 
 A self-serve sandbox for exploring Veriff products. Pick a product, configure it, see what comes back.
 
+**Live demo:** [https://veriff-sandbox.vercel.app/](https://veriff-sandbox.vercel.app/)
+
 Built for the Veriff Hackathon by a team of SEs and AEs. We get asked "do you have a sandbox?" constantly. Until now, the answer was no.
 
 ## Why we built this
