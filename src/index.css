@@ -1,40 +1,75 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono:
+    "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Monaco, Consolas,
+    monospace;
 
-  --color-surface: #131313;
-  --color-surface-dim: #131313;
-  --color-surface-bright: #3a3939;
-  --color-surface-container-lowest: #0e0e0e;
-  --color-surface-container-low: #1c1b1b;
-  --color-surface-container: #201f1f;
-  --color-surface-container-high: #2a2a2a;
-  --color-surface-container-highest: #353534;
-  --color-on-surface: #e5e2e1;
-  --color-on-surface-variant: #bbcac5;
-  --color-outline: #86948f;
-  --color-outline-variant: #3c4946;
-  --color-primary: #52dcc3;
-  --color-on-primary: #00382f;
-  --color-primary-container: #00b19a;
-  --color-on-primary-container: #003c33;
-  --color-secondary: #78d7c3;
-  --color-secondary-container: #007b6a;
-  --color-tertiary: #ffb5a0;
-  --color-error: #ffb4ab;
-  --color-error-container: #93000a;
-  --color-on-error-container: #ffdad6;
-  --color-background: #131313;
-  --color-on-background: #e5e2e1;
-  --color-surface-variant: #353534;
+  /* Surfaces — soft off-white canvas, white elevated panels */
+  --color-background: #f5f5f7;
+  --color-on-background: #1d1d1f;
+  --color-surface: #ffffff;
+  --color-surface-dim: #f5f5f7;
+  --color-surface-bright: #ffffff;
+  --color-surface-variant: #ebebed;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fafafa;
+  --color-surface-container: #ffffff;
+  --color-surface-container-high: #f0f0f2;
+  --color-surface-container-highest: #e8e8ed;
 
-  --radius-sm: 0.125rem;
-  --radius-DEFAULT: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
+  /* Text */
+  --color-on-surface: #1d1d1f;
+  --color-on-surface-variant: #6e6e73;
+
+  /* Borders — light hairlines */
+  --color-outline: #86868b;
+  --color-outline-variant: #d2d2d7;
+
+  /* Accent — restrained teal, used sparingly */
+  --color-primary: #007a63;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #007a63;
+  --color-on-primary-container: #ffffff;
+  --color-secondary: #3d6f64;
+  --color-secondary-container: #e8f3ef;
+
+  /* Semantic */
+  --color-tertiary: #b85c38;
+  --color-error: #d70015;
+  --color-error-container: #ffebee;
+  --color-on-error-container: #8a0010;
+
+  /* JSON / code accents (readable on light panels) */
+  --color-code-key: #007a63;
+  --color-code-string: #1a6b8a;
+  --color-code-number: #8a5a00;
+  --color-code-boolean: #007a63;
+  --color-code-null: #86868b;
+
+  /* Radii — small consistent set */
+  --radius-sm: 0.375rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+
+  /* Soft depth */
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04), 0 1px 3px rgb(0 0 0 / 0.03);
+  --shadow-DEFAULT:
+    0 1px 3px rgb(0 0 0 / 0.05), 0 4px 12px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 2px 8px rgb(0 0 0 / 0.06), 0 8px 24px rgb(0 0 0 / 0.04);
+  --shadow-lg: 0 8px 30px rgb(0 0 0 / 0.08), 0 2px 8px rgb(0 0 0 / 0.04);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
 }
 
 @layer base {
@@ -44,5 +79,16 @@
 
   body {
     @apply bg-background text-on-surface font-sans;
+    font-feature-settings: "kern" 1, "liga" 1;
+    letter-spacing: -0.011em;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-primary) 18%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }

@@ -1,14 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
 import { Check, ChevronDown, ChevronUp } from 'lucide-react'
 
+const fieldBase =
+  'w-full appearance-none rounded-lg bg-surface px-3 py-2.5 text-sm text-on-surface shadow-xs ring-1 ring-outline-variant/80 outline-none transition-all duration-150 placeholder:text-on-surface-variant/70 hover:ring-outline focus:ring-2 focus:ring-primary/40'
+
+const optionBase =
+  'flex cursor-pointer gap-3 rounded-lg px-3 py-3 transition-all duration-150 ring-1'
+
 export function CheckboxOption({ label, checked, onChange }) {
   return (
-    <label className="flex cursor-pointer items-center gap-3 rounded border border-outline-variant/40 bg-surface-container-low px-3 py-2.5 transition-colors hover:border-primary/30">
+    <label
+      className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-150 ring-1 ${
+        checked
+          ? 'bg-secondary-container/50 ring-primary/25'
+          : 'bg-surface ring-outline-variant/70 hover:bg-surface-container-low hover:ring-outline-variant'
+      }`}
+    >
       <span
-        className={`flex size-4 shrink-0 items-center justify-center rounded-sm border ${
+        className={`flex size-4 shrink-0 items-center justify-center rounded-[4px] border transition-colors duration-150 ${
           checked
             ? 'border-primary bg-primary text-on-primary'
-            : 'border-outline-variant bg-surface-container-high'
+            : 'border-outline-variant bg-surface'
         }`}
       >
         {checked && <Check className="size-3" strokeWidth={3} />}
@@ -27,17 +39,17 @@ export function CheckboxOption({ label, checked, onChange }) {
 export function CheckboxListItem({ label, sublabel, checked, onChange, highlighted }) {
   return (
     <label
-      className={`flex cursor-pointer gap-3 rounded border px-3 py-3 transition-colors ${
+      className={`${optionBase} ${
         highlighted || checked
-          ? 'border-primary/30 bg-surface-container-high'
-          : 'border-outline-variant/30 bg-transparent hover:border-outline-variant/60'
+          ? 'bg-secondary-container/40 ring-primary/25'
+          : 'bg-transparent ring-outline-variant/50 hover:bg-surface-container-low hover:ring-outline-variant'
       }`}
     >
       <span
-        className={`mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-sm border ${
+        className={`mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-[4px] border transition-colors duration-150 ${
           checked
             ? 'border-primary bg-primary text-on-primary'
-            : 'border-outline-variant bg-surface-container-high'
+            : 'border-outline-variant bg-surface'
         }`}
       >
         {checked && <Check className="size-3" strokeWidth={3} />}
@@ -49,9 +61,9 @@ export function CheckboxListItem({ label, sublabel, checked, onChange, highlight
         className="sr-only"
       />
       <div>
-        <p className="text-sm font-medium text-on-surface">{label}</p>
+        <p className="text-sm font-medium tracking-tight text-on-surface">{label}</p>
         {sublabel && (
-          <p className="mt-0.5 text-xs text-on-surface-variant">{sublabel}</p>
+          <p className="mt-0.5 text-xs leading-5 text-on-surface-variant">{sublabel}</p>
         )}
       </div>
     </label>
@@ -64,7 +76,7 @@ export function SelectField({ value, onChange, options, className = '' }) {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none rounded border border-outline-variant/50 bg-surface-container-low px-3 py-2.5 pr-10 text-sm text-on-surface outline-none transition-colors focus:border-primary"
+        className={`${fieldBase} pr-10`}
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -123,14 +135,16 @@ export function SearchSelect({ value, onChange, options, icon: Icon }) {
         onClick={toggleOpen}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex w-full items-center rounded border border-outline-variant/50 bg-surface-container-low py-2.5 pl-10 pr-10 text-left text-sm text-on-surface outline-none transition-colors hover:border-primary/30 focus:border-primary"
+        className={`flex ${fieldBase} items-center py-2.5 pl-10 pr-10 text-left ${
+          open ? 'ring-2 ring-primary/40' : ''
+        }`}
       >
         {Icon && (
           <Icon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-on-surface-variant" />
         )}
         <span className="truncate">{selected?.label}</span>
         <ChevronDown
-          className={`pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-on-surface-variant transition-transform ${
+          className={`pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-on-surface-variant transition-transform duration-150 ${
             open ? 'rotate-180' : ''
           }`}
         />
@@ -139,8 +153,8 @@ export function SearchSelect({ value, onChange, options, icon: Icon }) {
       {open && (
         <ul
           role="listbox"
-          className={`absolute z-50 max-h-48 w-full overflow-y-auto rounded border border-outline-variant/50 bg-surface-container py-1 shadow-lg ${
-            dropUp ? 'bottom-full mb-1' : 'top-full mt-1'
+          className={`absolute z-50 max-h-48 w-full overflow-y-auto rounded-lg bg-surface py-1 shadow-md ring-1 ring-outline-variant/70 ${
+            dropUp ? 'bottom-full mb-1.5' : 'top-full mt-1.5'
           }`}
         >
           {options.map((opt) => (
@@ -151,8 +165,10 @@ export function SearchSelect({ value, onChange, options, icon: Icon }) {
                   onChange(opt.value)
                   setOpen(false)
                 }}
-                className={`w-full px-3 py-2 text-left text-sm transition-colors hover:bg-surface-container-high ${
-                  opt.value === value ? 'bg-surface-container-high text-primary' : 'text-on-surface'
+                className={`w-full px-3 py-2 text-left text-sm transition-colors duration-150 hover:bg-surface-container-high ${
+                  opt.value === value
+                    ? 'bg-secondary-container/50 font-medium text-primary'
+                    : 'text-on-surface'
                 }`}
               >
                 {opt.label}
@@ -168,14 +184,14 @@ export function SearchSelect({ value, onChange, options, icon: Icon }) {
 export function RadioOption({ label, sublabel, checked, onChange, name }) {
   return (
     <label
-      className={`flex cursor-pointer gap-3 rounded border px-3 py-3 transition-colors ${
+      className={`${optionBase} ${
         checked
-          ? 'border-primary/40 bg-surface-container-high'
-          : 'border-outline-variant/30 hover:border-outline-variant/60'
+          ? 'bg-secondary-container/40 ring-primary/25'
+          : 'bg-transparent ring-outline-variant/50 hover:bg-surface-container-low hover:ring-outline-variant'
       }`}
     >
       <span
-        className={`mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full border-2 ${
+        className={`mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-150 ${
           checked ? 'border-primary' : 'border-outline-variant'
         }`}
       >
@@ -189,9 +205,9 @@ export function RadioOption({ label, sublabel, checked, onChange, name }) {
         className="sr-only"
       />
       <div>
-        <p className="text-sm font-medium text-on-surface">{label}</p>
+        <p className="text-sm font-medium tracking-tight text-on-surface">{label}</p>
         {sublabel && (
-          <p className="mt-0.5 text-xs text-on-surface-variant">{sublabel}</p>
+          <p className="mt-0.5 text-xs leading-5 text-on-surface-variant">{sublabel}</p>
         )}
       </div>
     </label>
@@ -203,7 +219,7 @@ export function CollapseToggle({ expanded, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="text-on-surface-variant transition-colors hover:text-primary"
+      className="rounded-md p-1.5 text-on-surface-variant transition-colors duration-150 hover:bg-surface-container-high hover:text-on-surface"
       aria-label={expanded ? 'Collapse section' : 'Expand section'}
     >
       {expanded ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
@@ -214,7 +230,7 @@ export function CollapseToggle({ expanded, onClick }) {
 export function InfoNote({ children }) {
   return (
     <p className="flex items-start gap-2 text-xs leading-5 text-on-surface-variant">
-      <span className="mt-0.5 size-3.5 shrink-0 rounded-full border border-on-surface-variant/50 text-center text-[9px] leading-3.5">
+      <span className="mt-0.5 flex size-3.5 shrink-0 items-center justify-center rounded-full bg-surface-container-highest text-[9px] font-medium leading-none text-on-surface-variant">
         i
       </span>
       {children}
@@ -224,7 +240,7 @@ export function InfoNote({ children }) {
 
 export function CodeInline({ children }) {
   return (
-    <code className="rounded bg-surface-container-high px-1.5 py-0.5 font-mono text-xs text-primary">
+    <code className="rounded-md bg-surface-container-high px-1.5 py-0.5 font-mono text-[11px] text-primary">
       {children}
     </code>
   )

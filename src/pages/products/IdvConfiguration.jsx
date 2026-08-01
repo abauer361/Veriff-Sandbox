@@ -9,7 +9,7 @@ import {
   SearchSelect,
 } from '../../components/FormControls'
 import JsonPanel from '../../components/JsonPanel'
-import { ProductHubNav } from '../../components/PageNav'
+import ProductPageShell from '../../components/ProductPageShell'
 import { buildIdvJsonOutput } from '../../data/idvResponses'
 
 const COUNTRY_OPTIONS = [
@@ -48,87 +48,86 @@ export default function IdvConfiguration() {
   )
 
   return (
-    <div className="flex min-h-dvh flex-col lg:h-dvh lg:overflow-hidden">
-      <ProductHubNav />
-      <main className="mx-auto flex w-full max-w-7xl min-h-0 flex-1 flex-col overflow-hidden px-4 py-4 md:px-12 md:py-5">
-        <header className="mb-4 shrink-0 space-y-1">
-          <h1 className="text-2xl font-bold text-primary md:text-[1.75rem] md:leading-8">
-            IDV Configuration
-          </h1>
-          <p className="text-sm text-on-surface-variant">
-            Customize the identity verification flow parameters for your
-            integration.
-          </p>
-        </header>
-
-        <div className="grid min-h-0 min-w-0 flex-1 gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
-          <div className="flex min-h-0 min-w-0 flex-col gap-4 overflow-y-auto">
-            <ConfigCard
-              icon={Search}
-              title="Data Extraction"
-              action={
-                <CollapseToggle
-                  expanded={expanded}
-                  onClick={() => setExpanded(!expanded)}
-                />
-              }
-            >
-              {expanded && (
-                <div className="space-y-3">
-                  <p className="text-xs text-on-surface-variant">
-                    Select Data Points to Extract
-                  </p>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    {DATA_POINTS.map((field) => (
-                      <CheckboxOption
-                        key={field.id}
-                        label={field.label}
-                        checked={selectedFields[field.id]}
-                        onChange={(checked) =>
-                          setSelectedFields((prev) => ({
-                            ...prev,
-                            [field.id]: checked,
-                          }))
-                        }
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-            </ConfigCard>
-
-            <ConfigCard icon={Globe} title="Country Selection" className="shrink-0">
+    <ProductPageShell
+      title="IDV Configuration"
+      description="Customize the identity verification flow parameters for your integration."
+    >
+      <div className="grid min-h-0 min-w-0 flex-1 gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+        <div className="flex min-h-0 flex-col gap-4">
+          <ConfigCard
+            icon={Search}
+            title="Data Extraction"
+            action={
+              <CollapseToggle
+                expanded={expanded}
+                onClick={() => setExpanded(!expanded)}
+              />
+            }
+          >
+            {expanded && (
               <div className="space-y-3">
                 <p className="text-xs text-on-surface-variant">
-                  Accepted Document Origin
+                  Select Data Points to Extract
                 </p>
-                <SearchSelect
-                  value={selectedCountry}
-                  onChange={setSelectedCountry}
-                  options={COUNTRY_OPTIONS}
-                  icon={Search}
-                />
-                <InfoNote>
-                  Restricting origin may increase verification friction for
-                  international users.
-                </InfoNote>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {DATA_POINTS.map((field) => (
+                    <CheckboxOption
+                      key={field.id}
+                      label={field.label}
+                      checked={selectedFields[field.id]}
+                      onChange={(checked) =>
+                        setSelectedFields((prev) => ({
+                          ...prev,
+                          [field.id]: checked,
+                        }))
+                      }
+                    />
+                  ))}
+                </div>
               </div>
-            </ConfigCard>
-          </div>
+            )}
+          </ConfigCard>
 
-          <div className="flex h-full min-h-0 min-w-0 flex-col gap-4">
-            <ConfigCard icon={Search} title="ID Preview" fill className="min-h-0 flex-1">
-              <CountryIdPreview
-                country={selectedCountry}
-                countryOptions={COUNTRY_OPTIONS}
-                className="h-full"
+          <ConfigCard icon={Globe} title="Country Selection">
+            <div className="space-y-3">
+              <p className="text-xs text-on-surface-variant">
+                Accepted Document Origin
+              </p>
+              <SearchSelect
+                value={selectedCountry}
+                onChange={setSelectedCountry}
+                options={COUNTRY_OPTIONS}
+                icon={Search}
               />
-            </ConfigCard>
-
-            <JsonPanel title="JSON Output" data={jsonOutput} fill className="min-h-0 flex-1" />
-          </div>
+              <InfoNote>
+                Restricting origin may increase verification friction for
+                international users.
+              </InfoNote>
+            </div>
+          </ConfigCard>
         </div>
-      </main>
-    </div>
+
+        <div className="flex min-h-0 flex-col gap-4">
+          <ConfigCard
+            icon={Search}
+            title="ID Preview"
+            fill
+            className="h-52 shrink-0"
+          >
+            <CountryIdPreview
+              country={selectedCountry}
+              countryOptions={COUNTRY_OPTIONS}
+              className="h-full min-h-0"
+            />
+          </ConfigCard>
+
+          <JsonPanel
+            title="JSON Output"
+            data={jsonOutput}
+            className="max-h-64 shrink-0"
+          />
+        </div>
+      </div>
+    </ProductPageShell>
   )
 }

@@ -55,7 +55,7 @@ export default function DocumentPreview({ docType, className = '' }) {
 
   return (
     <div
-      className={`relative flex h-full min-h-0 flex-col overflow-hidden rounded bg-surface-container-lowest ${className}`}
+      className={`relative flex h-full min-h-0 flex-col overflow-hidden rounded-lg bg-surface-container-low ${className}`}
     >
       {imageSrc ? (
         <img

@@ -60,7 +60,7 @@ export default function CountryIdPreview({
 
   return (
     <div
-      className={`flex items-center justify-center overflow-hidden rounded border border-outline-variant/50 bg-surface-container-low ${className}`}
+      className={`flex min-h-0 items-center justify-center overflow-hidden rounded-lg bg-surface-container-low ring-1 ring-outline-variant/50 ${className}`}
     >
       {imageSrc ? (
         <img

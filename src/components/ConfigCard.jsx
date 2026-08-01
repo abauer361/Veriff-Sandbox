@@ -9,23 +9,31 @@ export default function ConfigCard({
 }) {
   return (
     <section
-      className={`rounded-lg border border-outline-variant/40 bg-surface-container ${
+      className={`overflow-hidden rounded-xl bg-surface shadow-sm ring-1 ring-outline-variant/60 ${
         fill ? 'flex h-full min-h-0 flex-col' : ''
       } ${className}`}
     >
       <div
-        className={`flex shrink-0 items-center justify-between border-b border-outline-variant/30 ${
+        className={`flex shrink-0 items-center justify-between ${
           dense ? 'px-3 py-2.5' : 'px-4 py-3.5 md:px-5'
         }`}
       >
         <div className="flex items-center gap-2.5">
-          {Icon && <Icon className="size-4 text-primary" strokeWidth={2} />}
-          <h2 className="text-sm font-medium text-on-surface">{title}</h2>
+          {Icon && (
+            <span className="flex size-7 items-center justify-center rounded-md bg-secondary-container">
+              <Icon className="size-3.5 text-primary" strokeWidth={2} />
+            </span>
+          )}
+          <h2 className="text-sm font-medium tracking-tight text-on-surface">
+            {title}
+          </h2>
         </div>
         {action}
       </div>
       <div
-        className={`${dense ? 'p-3 md:p-4' : 'p-4 md:p-5'} ${fill ? 'flex min-h-0 flex-1 flex-col' : ''}`}
+        className={`border-t border-outline-variant/50 ${
+          dense ? 'p-3 md:p-4' : 'p-4 md:p-5'
+        } ${fill ? 'flex min-h-0 flex-1 flex-col overflow-y-auto' : ''}`}
       >
         {children}
       </div>
