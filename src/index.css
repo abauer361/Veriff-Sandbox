@@ -75,12 +75,21 @@
 @layer base {
   html {
     @apply antialiased;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-on-surface font-sans;
     font-feature-settings: "kern" 1, "liga" 1;
     letter-spacing: -0.011em;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  #root {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
   }
 
   ::selection {

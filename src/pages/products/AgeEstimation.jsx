@@ -57,8 +57,8 @@ export default function AgeEstimation() {
       title="Age Estimation"
       description="Estimate an end-user's age from selfie images. Age and gender data arrive in the webhook payload."
     >
-      <div className="grid min-h-0 min-w-0 flex-1 gap-4 lg:grid-cols-3 lg:items-stretch">
-        <div className="flex min-h-0 flex-col gap-4 overflow-y-auto">
+      <div className="grid w-full min-w-0 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-3 lg:items-stretch">
+        <div className="flex min-w-0 flex-col gap-4 lg:min-h-0 lg:overflow-y-auto">
           <ConfigCard icon={Brain} title="Age Estimation Setup">
             <div className="mb-4 space-y-3">
               <div className="rounded-lg bg-surface-container-low p-3 ring-1 ring-outline-variant/40">
@@ -85,7 +85,7 @@ export default function AgeEstimation() {
                 className="size-4 shrink-0 text-on-surface-variant"
                 strokeWidth={1.75}
               />
-              <div>
+              <div className="min-w-0">
                 <p className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-on-surface-variant">
                   Gender Logic
                 </p>
@@ -103,7 +103,7 @@ export default function AgeEstimation() {
           icon={Eye}
           title="Preview"
           fill
-          className="min-h-[16rem] lg:min-h-0"
+          className="min-h-64 min-w-0 lg:min-h-0"
         >
           <div className="relative h-full min-h-0 overflow-hidden rounded-lg bg-surface-container-low">
             <img
@@ -119,7 +119,7 @@ export default function AgeEstimation() {
           title="Webhook Payload"
           data={jsonOutput}
           fill
-          className="min-h-[16rem] lg:min-h-0"
+          className="min-h-72 min-w-0 lg:min-h-0"
         />
       </div>
     </ProductPageShell>

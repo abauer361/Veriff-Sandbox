@@ -66,12 +66,12 @@ export default function AmlScreening() {
       title="AML Screening Configuration"
       description="Configure automated screening against global watchlists and adverse media to meet your KYC/AML compliance requirements."
     >
-      <div className="grid min-h-0 min-w-0 flex-1 gap-4 lg:grid-cols-3 lg:items-stretch">
+      <div className="grid w-full min-w-0 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-3 lg:items-stretch">
         <ConfigCard
           icon={Shield}
           title="Screening Lists"
           fill
-          className="min-h-[14rem] lg:min-h-0"
+          className="min-w-0 lg:min-h-0"
         >
           <ul className="divide-y divide-outline-variant/30">
             {SCREENING_LISTS.map((item) => (
@@ -82,7 +82,7 @@ export default function AmlScreening() {
           </ul>
         </ConfigCard>
 
-        <div className="flex min-h-0 flex-col gap-4 overflow-y-auto">
+        <div className="flex min-w-0 flex-col gap-4 lg:min-h-0 lg:overflow-y-auto">
           <ConfigCard icon={RefreshCw} title="Ongoing Monitoring" className="shrink-0">
             <p className="text-sm leading-6 text-on-surface-variant">
               Once enabled, Veriff continuously monitors your customers against
@@ -96,7 +96,7 @@ export default function AmlScreening() {
             icon={Braces}
             title="Data Mapping"
             fill
-            className="min-h-0 flex-1 max-lg:min-h-0"
+            className="min-w-0 lg:min-h-0 lg:flex-1"
           >
             <div className="flex h-full flex-col justify-between gap-4">
               <p className="text-sm leading-6 text-on-surface-variant">
@@ -110,7 +110,7 @@ export default function AmlScreening() {
                   className="size-4 shrink-0 text-primary"
                   strokeWidth={1.75}
                 />
-                <p className="text-xs leading-5 text-on-surface-variant">
+                <p className="min-w-0 text-xs leading-5 text-on-surface-variant">
                   Providing a consistent identifier allows our engine to link
                   subsequent verification attempts and updates to the same
                   persistent entity profile.
@@ -120,7 +120,7 @@ export default function AmlScreening() {
           </ConfigCard>
         </div>
 
-        <JsonPanel data={AML_JSON} fill className="min-h-[16rem] lg:min-h-0" />
+        <JsonPanel data={AML_JSON} fill className="min-h-72 min-w-0 lg:min-h-0" />
       </div>
     </ProductPageShell>
   )

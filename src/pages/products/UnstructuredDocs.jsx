@@ -58,8 +58,8 @@ export default function UnstructuredDocs() {
       title="Unstructured Docs Configuration"
       description="Configure extractions and checks for non-standard documents to tailor the verification process."
     >
-      <div className="grid min-h-0 min-w-0 flex-1 gap-4 lg:grid-cols-3 lg:items-stretch">
-        <div className="flex min-h-0 flex-col gap-4 overflow-y-auto">
+      <div className="grid w-full min-w-0 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-3 lg:items-stretch">
+        <div className="flex min-w-0 flex-col gap-4 lg:min-h-0 lg:overflow-y-auto">
           <ConfigCard icon={FileText} title="Supported Docs" className="shrink-0">
             <div className="space-y-3">
               <SelectField
@@ -102,7 +102,7 @@ export default function UnstructuredDocs() {
           icon={Eye}
           title="Preview"
           fill
-          className="min-h-[16rem] lg:min-h-0"
+          className="min-h-64 min-w-0 lg:min-h-0"
         >
           <DocumentPreview docType={docType} className="h-full min-h-0" />
         </ConfigCard>
@@ -110,7 +110,7 @@ export default function UnstructuredDocs() {
         <JsonPanel
           data={jsonOutput}
           fill
-          className="min-h-[16rem] lg:min-h-0"
+          className="min-h-72 min-w-0 lg:min-h-0"
         />
       </div>
     </ProductPageShell>

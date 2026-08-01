@@ -52,8 +52,8 @@ export default function IdvConfiguration() {
       title="IDV Configuration"
       description="Customize the identity verification flow parameters for your integration."
     >
-      <div className="grid min-h-0 min-w-0 flex-1 gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-        <div className="flex min-h-0 flex-col gap-4">
+      <div className="grid w-full min-w-0 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+        <div className="flex min-w-0 flex-col gap-4 lg:min-h-0">
           <ConfigCard
             icon={Search}
             title="Data Extraction"
@@ -107,12 +107,12 @@ export default function IdvConfiguration() {
           </ConfigCard>
         </div>
 
-        <div className="flex min-h-0 flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-4 lg:min-h-0">
           <ConfigCard
             icon={Search}
             title="ID Preview"
             fill
-            className="h-52 shrink-0"
+            className="h-52 shrink-0 sm:h-64"
           >
             <CountryIdPreview
               country={selectedCountry}
@@ -124,7 +124,7 @@ export default function IdvConfiguration() {
           <JsonPanel
             title="JSON Output"
             data={jsonOutput}
-            className="max-h-64 shrink-0"
+            className="min-h-64 max-h-[28rem] w-full shrink-0 lg:max-h-64"
           />
         </div>
       </div>

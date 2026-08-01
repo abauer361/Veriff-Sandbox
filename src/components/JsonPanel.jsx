@@ -29,8 +29,8 @@ export default function JsonPanel({
 
   return (
     <section
-      className={`flex min-w-0 flex-col overflow-hidden rounded-xl bg-surface shadow-sm ring-1 ring-outline-variant/60 ${
-        fill ? 'h-full min-h-0' : ''
+      className={`flex w-full min-w-0 max-w-full flex-col overflow-hidden rounded-xl bg-surface shadow-sm ring-1 ring-outline-variant/60 ${
+        fill ? 'lg:h-full lg:min-h-0' : ''
       } ${className}`}
     >
       <div className="flex shrink-0 items-center justify-between px-4 py-3 md:px-5">
@@ -58,12 +58,12 @@ export default function JsonPanel({
         )}
       </div>
       <pre
-        className={`min-h-0 min-w-0 w-full max-w-full overflow-x-auto overflow-y-auto border-t border-outline-variant/50 bg-surface-container-low p-4 font-mono text-[12px] leading-5 text-on-surface md:p-5 md:text-[13px] md:leading-6 ${
+        className={`min-h-0 min-w-0 max-w-full overflow-x-auto overflow-y-auto border-t border-outline-variant/50 bg-surface-container-low p-4 font-mono text-[12px] leading-5 text-on-surface md:p-5 md:text-[13px] md:leading-6 ${
           fill || !compact ? 'flex-1' : ''
         }`}
       >
         <code
-          className="block w-max min-w-full whitespace-pre"
+          className="block w-max max-w-none whitespace-pre"
           dangerouslySetInnerHTML={{
             __html: highlightJson(data, 2),
           }}
