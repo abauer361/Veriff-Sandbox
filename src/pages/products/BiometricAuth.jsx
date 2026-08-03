@@ -158,7 +158,7 @@ export default function BiometricAuth() {
         </ConfigCard>
 
         <JsonPanel
-          title="Webhook Payload Preview"
+          title="JSON Preview"
           data={JSON_BY_METHOD[method]}
           fill
           className="min-h-72 min-w-0 lg:min-h-0"

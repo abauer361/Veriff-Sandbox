@@ -116,7 +116,7 @@ export default function AgeEstimation() {
         </ConfigCard>
 
         <JsonPanel
-          title="Webhook Payload"
+          title="JSON Preview"
           data={jsonOutput}
           fill
           className="min-h-72 min-w-0 lg:min-h-0"

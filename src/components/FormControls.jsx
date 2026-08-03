@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Check, ChevronDown, ChevronUp } from 'lucide-react'
 
 const fieldBase =
@@ -91,42 +92,71 @@ export function SelectField({ value, onChange, options, className = '' }) {
 
 export function SearchSelect({ value, onChange, options, icon: Icon }) {
   const [open, setOpen] = useState(false)
-  const [dropUp, setDropUp] = useState(false)
+  const [menuStyle, setMenuStyle] = useState(null)
   const containerRef = useRef(null)
+  const menuRef = useRef(null)
 
   const selected = options.find((opt) => opt.value === value)
 
+  function updateMenuPosition() {
+    if (!containerRef.current) return
+
+    const rect = containerRef.current.getBoundingClientRect()
+    const estimatedMenuHeight = Math.min(options.length * 40 + 8, 192)
+    const spaceBelow = window.innerHeight - rect.bottom
+    const spaceAbove = rect.top
+    const dropUp = spaceBelow < estimatedMenuHeight && spaceAbove > spaceBelow
+    const gap = 6
+
+    setMenuStyle({
+      position: 'fixed',
+      left: rect.left,
+      width: rect.width,
+      zIndex: 100,
+      ...(dropUp
+        ? { bottom: window.innerHeight - rect.top + gap }
+        : { top: rect.bottom + gap }),
+    })
+  }
+
   function toggleOpen() {
-    if (!open && containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect()
-      const estimatedMenuHeight = options.length * 40 + 8
-      const spaceBelow = window.innerHeight - rect.bottom
-      const spaceAbove = rect.top
-      setDropUp(spaceBelow < estimatedMenuHeight && spaceAbove > spaceBelow)
-    }
+    if (!open) updateMenuPosition()
     setOpen((current) => !current)
   }
+
+  useLayoutEffect(() => {
+    if (!open) return
+    updateMenuPosition()
+  }, [open, options.length])
 
   useEffect(() => {
     if (!open) return
 
     function handleClickOutside(event) {
-      if (!containerRef.current?.contains(event.target)) {
-        setOpen(false)
-      }
+      const inTrigger = containerRef.current?.contains(event.target)
+      const inMenu = menuRef.current?.contains(event.target)
+      if (!inTrigger && !inMenu) setOpen(false)
     }
 
     function handleEscape(event) {
       if (event.key === 'Escape') setOpen(false)
     }
 
+    function handleReposition() {
+      updateMenuPosition()
+    }
+
     document.addEventListener('mousedown', handleClickOutside)
     document.addEventListener('keydown', handleEscape)
+    window.addEventListener('resize', handleReposition)
+    window.addEventListener('scroll', handleReposition, true)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('keydown', handleEscape)
+      window.removeEventListener('resize', handleReposition)
+      window.removeEventListener('scroll', handleReposition, true)
     }
-  }, [open])
+  }, [open, options.length])
 
   return (
     <div ref={containerRef} className="relative">
@@ -150,33 +180,40 @@ export function SearchSelect({ value, onChange, options, icon: Icon }) {
         />
       </button>
 
-      {open && (
-        <ul
-          role="listbox"
-          className={`absolute z-50 max-h-48 w-full overflow-y-auto rounded-lg bg-surface py-1 shadow-md ring-1 ring-outline-variant/70 ${
-            dropUp ? 'bottom-full mb-1.5' : 'top-full mt-1.5'
-          }`}
-        >
-          {options.map((opt) => (
-            <li key={opt.value} role="option" aria-selected={opt.value === value}>
-              <button
-                type="button"
-                onClick={() => {
-                  onChange(opt.value)
-                  setOpen(false)
-                }}
-                className={`w-full px-3 py-2 text-left text-sm transition-colors duration-150 hover:bg-surface-container-high ${
-                  opt.value === value
-                    ? 'bg-secondary-container/50 font-medium text-primary'
-                    : 'text-on-surface'
-                }`}
+      {open &&
+        menuStyle &&
+        createPortal(
+          <ul
+            ref={menuRef}
+            role="listbox"
+            style={menuStyle}
+            className="max-h-48 overflow-y-auto rounded-lg bg-surface py-1 shadow-md ring-1 ring-outline-variant/70"
+          >
+            {options.map((opt) => (
+              <li
+                key={opt.value}
+                role="option"
+                aria-selected={opt.value === value}
               >
-                {opt.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(opt.value)
+                    setOpen(false)
+                  }}
+                  className={`w-full px-3 py-2 text-left text-sm transition-colors duration-150 hover:bg-surface-container-high ${
+                    opt.value === value
+                      ? 'bg-secondary-container/50 font-medium text-primary'
+                      : 'text-on-surface'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              </li>
+            ))}
+          </ul>,
+          document.body,
+        )}
     </div>
   )
 }

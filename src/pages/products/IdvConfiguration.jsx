@@ -52,43 +52,58 @@ export default function IdvConfiguration() {
       title="IDV Configuration"
       description="Customize the identity verification flow parameters for your integration."
     >
-      <div className="grid w-full min-w-0 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+      <div className="grid w-full min-w-0 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-3 lg:items-stretch">
+        <ConfigCard
+          icon={Search}
+          title="Data Extraction"
+          fill
+          className="min-w-0 lg:min-h-0"
+          action={
+            <CollapseToggle
+              expanded={expanded}
+              onClick={() => setExpanded(!expanded)}
+            />
+          }
+        >
+          {expanded && (
+            <div className="space-y-3">
+              <p className="text-xs text-on-surface-variant">
+                Select Data Points to Extract
+              </p>
+              <div className="grid gap-2">
+                {DATA_POINTS.map((field) => (
+                  <CheckboxOption
+                    key={field.id}
+                    label={field.label}
+                    checked={selectedFields[field.id]}
+                    onChange={(checked) =>
+                      setSelectedFields((prev) => ({
+                        ...prev,
+                        [field.id]: checked,
+                      }))
+                    }
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </ConfigCard>
+
         <div className="flex min-w-0 flex-col gap-4 lg:min-h-0">
           <ConfigCard
             icon={Search}
-            title="Data Extraction"
-            action={
-              <CollapseToggle
-                expanded={expanded}
-                onClick={() => setExpanded(!expanded)}
-              />
-            }
+            title="ID Preview"
+            fill
+            className="min-h-52 min-w-0 sm:min-h-64 lg:min-h-0 lg:flex-1"
           >
-            {expanded && (
-              <div className="space-y-3">
-                <p className="text-xs text-on-surface-variant">
-                  Select Data Points to Extract
-                </p>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {DATA_POINTS.map((field) => (
-                    <CheckboxOption
-                      key={field.id}
-                      label={field.label}
-                      checked={selectedFields[field.id]}
-                      onChange={(checked) =>
-                        setSelectedFields((prev) => ({
-                          ...prev,
-                          [field.id]: checked,
-                        }))
-                      }
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+            <CountryIdPreview
+              country={selectedCountry}
+              countryOptions={COUNTRY_OPTIONS}
+              className="h-full min-h-0"
+            />
           </ConfigCard>
 
-          <ConfigCard icon={Globe} title="Country Selection">
+          <ConfigCard icon={Globe} title="Country Selection" className="shrink-0">
             <div className="space-y-3">
               <p className="text-xs text-on-surface-variant">
                 Accepted Document Origin
@@ -107,26 +122,12 @@ export default function IdvConfiguration() {
           </ConfigCard>
         </div>
 
-        <div className="flex min-w-0 flex-col gap-4 lg:min-h-0">
-          <ConfigCard
-            icon={Search}
-            title="ID Preview"
-            fill
-            className="h-52 shrink-0 sm:h-64"
-          >
-            <CountryIdPreview
-              country={selectedCountry}
-              countryOptions={COUNTRY_OPTIONS}
-              className="h-full min-h-0"
-            />
-          </ConfigCard>
-
-          <JsonPanel
-            title="JSON Output"
-            data={jsonOutput}
-            className="min-h-64 max-h-[28rem] w-full shrink-0 lg:max-h-64"
-          />
-        </div>
+        <JsonPanel
+          title="JSON Preview"
+          data={jsonOutput}
+          fill
+          className="min-h-72 min-w-0 lg:min-h-0"
+        />
       </div>
     </ProductPageShell>
   )

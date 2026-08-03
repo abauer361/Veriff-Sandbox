@@ -12,7 +12,7 @@ function highlightJson(json, indent = 2) {
 }
 
 export default function JsonPanel({
-  title = 'response.json',
+  title = 'JSON Preview',
   data,
   className = '',
   showCopy = true,

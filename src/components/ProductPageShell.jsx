@@ -9,7 +9,7 @@ export default function ProductPageShell({ title, description, children }) {
   return (
     <div className="flex min-h-dvh w-full max-w-full flex-col overflow-x-hidden lg:h-dvh lg:overflow-hidden">
       <ProductHubNav />
-      <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col px-4 py-3 pb-8 md:px-12 md:py-4 lg:min-h-0 lg:overflow-hidden lg:pb-4">
+      <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col px-4 py-3 pb-8 md:px-12 md:py-4 lg:min-h-0 lg:overflow-hidden lg:pb-8">
         {(title || description) && (
           <header className="mb-3 shrink-0 space-y-0.5">
             {title && (
